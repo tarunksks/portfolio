@@ -1,0 +1,27 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.log
+
+# Unnecessary folders
+virtual mouse using hand gesture - Google Search_files/
+virtual mouse using hand gesture - Google Search.html
+
+# Node modules (if you add any later)
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
