@@ -25,6 +25,42 @@ if (menuBtn && mobileNav) {
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+(function initScrollProgress() {
+  const root = document.getElementById("scrollProgress");
+  const bar = document.getElementById("scrollProgressBar");
+  if (!root || !bar) return;
+
+  const SHOW_AFTER = 48;
+  let ticking = false;
+  let lastPct = -1;
+
+  function update() {
+    ticking = false;
+    const scrollTop = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = maxScroll > 0 ? Math.min(100, (scrollTop / maxScroll) * 100) : 0;
+
+    if (Math.abs(pct - lastPct) > 0.05 || scrollTop <= SHOW_AFTER) {
+      bar.style.width = `${pct}%`;
+      lastPct = pct;
+    }
+
+    root.classList.toggle("is-visible", scrollTop > SHOW_AFTER);
+    root.classList.toggle("is-active", scrollTop > SHOW_AFTER && pct > 0);
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  update();
+})();
+
 // ============================================================================
 // Contact Form - EmailJS Integration
 // ============================================================================
